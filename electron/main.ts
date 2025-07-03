@@ -26,9 +26,11 @@ function createWindow() {
 
   // Load the app
   if (isDev) {
-    mainWindow.loadURL('http://localhost:5173')
+    mainWindow.loadURL('http://localhost:8080')
   } else {
-    mainWindow.loadFile(join(__dirname, '../dist/index.html'))
+    // In production, load from the dist folder
+    const indexPath = join(__dirname, '../dist/index.html')
+    mainWindow.loadFile(indexPath)
   }
 
   // Show window when ready
