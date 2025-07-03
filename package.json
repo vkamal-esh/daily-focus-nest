@@ -9,6 +9,14 @@
     "build:dev": "vite build --mode development",
     "lint": "eslint .",
     "preview": "vite preview"
+    "dev": "concurrently \"vite\" \"wait-on http://localhost:8080 && electron .\"",
+    "build": "npm run build:web && npm run build:electron",
+    "build:web": "vite build",
+    "build:electron": "vite build --config electron.vite.config.ts",
+    "build:linux": "npm run build && electron-builder --linux",
+    "build:win": "npm run build && electron-builder --win",
+    "build:mac": "npm run build && electron-builder --mac",
+    "build:all": "npm run build && electron-builder -mwl"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.0",
