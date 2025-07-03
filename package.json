@@ -3,6 +3,12 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "main": "dist-electron/main.js",
+  "description": "Daily Focus Nest - A productivity app",
+  "author": {
+    "name": "Kamalesh",
+    "email": "vkamalesh09@gmail.com"
+  },
   "scripts": {
     "dev": "concurrently \"vite\" \"wait-on http://localhost:8080 && electron .\"",
     "build": "npm run build:web && npm run build:electron",
@@ -10,11 +16,11 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "build:web": "vite build",
-    "build:electron": "vite build --config electron.vite.config.ts",
-    "build:linux": "npm run build && electron-builder --linux",
-    "build:win": "npm run build && electron-builder --win",
-    "build:mac": "npm run build && electron-builder --mac",
-    "build:all": "npm run build && electron-builder -mwl"
+    "build:electron": "tsc electron/main.ts --outDir dist-electron --target es2022 --module es2022 --moduleResolution node && tsc electron/preload.ts --outDir dist-electron --target es2022 --module es2022 --moduleResolution node",
+    "build:linux": "npm run build && electron-builder --config electron.config.cjs --linux",
+    "build:win": "npm run build && electron-builder --config electron.config.cjs --win",
+    "build:mac": "npm run build && electron-builder --config electron.config.cjs --mac",
+    "build:all": "npm run build && electron-builder --config electron.config.cjs -mwl"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.0",
@@ -51,8 +57,6 @@
     "cmdk": "^1.0.0",
     "concurrently": "^9.2.0",
     "date-fns": "^3.6.0",
-    "electron": "^28.3.3",
-    "electron-builder": "^24.13.3",
     "embla-carousel-react": "^8.3.0",
     "input-otp": "^1.2.4",
     "lucide-react": "^0.462.0",
@@ -83,6 +87,8 @@
     "@types/react-dom": "^18.3.0",
     "@vitejs/plugin-react-swc": "^3.5.0",
     "autoprefixer": "^10.4.20",
+    "electron": "^28.3.3",
+    "electron-builder": "^24.13.3",
     "eslint": "^9.9.0",
     "eslint-plugin-react-hooks": "^5.1.0-rc.0",
     "eslint-plugin-react-refresh": "^0.4.9",

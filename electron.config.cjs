@@ -1,4 +1,6 @@
 module.exports = {
+  appId: "com.dailyfocus.nest",
+  productName: "Daily Focus Nest",
   directories: {
     output: "electron-dist"
   },
@@ -19,7 +21,8 @@ module.exports = {
         target: "deb",
         arch: ["x64"]
       }
-    ]
+    ],
+    category: "Utility"
   },
   win: {
     target: "nsis"

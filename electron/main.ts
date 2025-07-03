@@ -1,7 +1,12 @@
-
 import { app, BrowserWindow, ipcMain, dialog } from 'electron'
 import { join } from 'path'
 import { promises as fs } from 'fs'
+import { fileURLToPath } from 'url'
+import { dirname } from 'path'
+
+// ES module equivalent of __dirname
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = dirname(__filename)
 
 const isDev = process.env.NODE_ENV === 'development'
 
