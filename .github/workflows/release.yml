@@ -30,13 +30,21 @@ jobs:
     - name: Build application
       run: npm run build:linux
 
+    - name: List build artifacts
+      run: |
+        echo "Listing electron-dist directory:"
+        ls -la electron-dist/ || echo "electron-dist directory not found"
+        echo "Looking for AppImage and deb files:"
+        find . -name "*.AppImage" -o -name "*.deb" || echo "No AppImage or deb files found"
+
     - name: Create Release
       uses: softprops/action-gh-release@v1
       with:
         files: |
-          electron-dist/*.AppImage
-          electron-dist/*.deb
+          electron-dist/Daily Focus Nest-*.AppImage
+          electron-dist/*_amd64.deb
         generate_release_notes: true
         draft: false
+        fail_on_unmatched_files: true
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
