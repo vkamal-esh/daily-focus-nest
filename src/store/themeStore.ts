@@ -3,35 +3,26 @@ import { persist } from 'zustand/middleware'
 
 interface ThemeStore {
   isDark: boolean
+  // Keep for compatibility but always true
   toggleTheme: () => void
 }
 
 export const useThemeStore = create<ThemeStore>()(
   persist(
     (set, get) => ({
-      isDark: false,
+      isDark: true, // Always dark
       
       toggleTheme: () => {
-        const newTheme = !get().isDark
-        set({ isDark: newTheme })
-        
-        // Apply theme to document
-        if (newTheme) {
-          document.documentElement.classList.add('dark')
-        } else {
-          document.documentElement.classList.remove('dark')
-        }
+        // Always stay dark - this is just for compatibility
+        set({ isDark: true })
+        document.documentElement.classList.add('dark')
       }
     }),
     {
       name: 'flow-theme',
       onRehydrateStorage: () => (state) => {
-        // Apply theme on app load
-        if (state?.isDark) {
-          document.documentElement.classList.add('dark')
-        } else {
-          document.documentElement.classList.remove('dark')
-        }
+        // Always apply dark theme on app load
+        document.documentElement.classList.add('dark')
       }
     }
   )

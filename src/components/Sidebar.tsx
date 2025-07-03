@@ -1,37 +1,23 @@
+
 import { NavLink } from "react-router-dom"
-import { Calendar, CheckSquare, Home, Moon, Sun } from "lucide-react"
+import { Calendar, CheckSquare, Home, Settings } from "lucide-react"
 import { cn } from "@/lib/utils"
-import { Button } from "@/components/ui/button"
-import { useThemeStore } from "@/store/themeStore"
 
 const navigation = [
   { name: "Today", href: "/", icon: Home },
   { name: "All Tasks", href: "/tasks", icon: CheckSquare },
   { name: "Calendar", href: "/calendar", icon: Calendar },
+  { name: "Settings", href: "/settings", icon: Settings },
 ]
 
 export function Sidebar() {
-  const { isDark, toggleTheme } = useThemeStore()
-
   return (
-    <div className="flex h-screen w-64 flex-col bg-gradient-calm border-r border-border/50">
+    <div className="flex h-screen w-64 flex-col bg-gradient-calm border-r border-border/50 scroll-container">
       {/* Header */}
-      <div className="flex h-16 items-center justify-between px-6 border-b border-border/50">
+      <div className="flex h-16 items-center justify-center px-6 border-b border-border/50">
         <h1 className="text-xl font-display font-semibold text-foreground">
           Flow
         </h1>
-        <Button
-          variant="ghost"
-          size="sm"
-          onClick={toggleTheme}
-          className="h-8 w-8 p-0 hover:bg-muted/50"
-        >
-          {isDark ? (
-            <Sun className="h-4 w-4" />
-          ) : (
-            <Moon className="h-4 w-4" />
-          )}
-        </Button>
       </div>
 
       {/* Navigation */}
@@ -74,9 +60,9 @@ export function Sidebar() {
       <div className="px-6 pb-6">
         <div className="rounded-lg bg-gradient-card p-4 border border-border/50 shadow-card">
           <p className="text-xs text-muted-foreground italic leading-relaxed">
-            "Discipline is choosing between what you want now and what you want most."
+            "The secret of change is to focus all of your energy not on fighting the old, but on building the new."
           </p>
-          <p className="text-xs text-muted-foreground/70 mt-1">— Abraham Lincoln</p>
+          <p className="text-xs text-muted-foreground/70 mt-1">— Socrates</p>
         </div>
       </div>
     </div>
