@@ -1,3 +1,4 @@
+
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import path from "path";
@@ -8,7 +9,7 @@ import electron from "vite-plugin-electron";
 export default defineConfig(({ mode }) => ({
   server: {
     host: "::",
-    port: 8080,
+    port: 5173,
   },
   plugins: [
     react(),
@@ -32,6 +33,22 @@ export default defineConfig(({ mode }) => ({
             }
           }
         }
+      },
+      {
+        entry: "electron/preload.ts",
+        onstart: (options) => {
+          options.reload()
+        },
+        vite: {
+          build: {
+            sourcemap: mode === 'development',
+            minify: mode !== 'development',
+            outDir: "dist-electron",
+            rollupOptions: {
+              external: ["electron"]
+            }
+          }
+        }
       }
     ])
   ].filter(Boolean),
@@ -39,5 +56,8 @@ export default defineConfig(({ mode }) => ({
     alias: {
       "@": path.resolve(__dirname, "./src"),
     },
+  },
+  define: {
+    global: 'globalThis',
   },
 }));

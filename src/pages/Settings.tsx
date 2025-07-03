@@ -1,4 +1,3 @@
-
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
@@ -53,13 +52,34 @@ export default function Settings() {
     })
   }
 
-  const handleSelectFolder = () => {
-    // In a real Electron app, this would open a folder dialog
-    // For now, we'll show a toast
-    toast({
-      title: "Folder selection",
-      description: "This would open a folder picker in the Electron app.",
-    })
+  const handleSelectFolder = async () => {
+    try {
+      if (typeof window !== 'undefined' && window.electronAPI) {
+        const selectedPath = await window.electronAPI.selectDirectory()
+        if (selectedPath) {
+          setLocalSettings({
+            ...localSettings,
+            saveLocation: selectedPath
+          })
+          toast({
+            title: "Folder selected",
+            description: `Tasks will be saved to: ${selectedPath}`,
+          })
+        }
+      } else {
+        toast({
+          title: "Folder selection",
+          description: "Folder selection is available in the desktop app.",
+        })
+      }
+    } catch (error) {
+      console.error('Folder selection error:', error)
+      toast({
+        title: "Error",
+        description: "Failed to select folder. Please try again.",
+        variant: "destructive"
+      })
+    }
   }
 
   return (
