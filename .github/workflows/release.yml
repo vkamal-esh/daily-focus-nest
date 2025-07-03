@@ -42,9 +42,8 @@ jobs:
       with:
         files: |
           electron-dist/Daily Focus Nest-*.AppImage
-          electron-dist/*_amd64.deb
+          electron-dist/daily-focus-nest_*_amd64.deb
         generate_release_notes: true
         draft: false
-        fail_on_unmatched_files: true
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
